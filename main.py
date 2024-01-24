@@ -30,18 +30,7 @@ class System(tk.Tk):
 
 
 if __name__ == "__main__":
-    # Create the main window
     root = System()
-
-    # Create a label widget
-    label = tk.Label(root, text="Click the button to say hello!")
-
-    # Create a button widget
-    button = tk.Button(root, text="Say Hello", command=lambda: label.config(text="Hello, World!"))
-
-    # Pack the widgets into the window
-    label.pack(padx=10, pady=10)
-    button.pack(pady=10)
 
     # Run the Tkinter event loop
     root.mainloop()
