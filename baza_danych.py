@@ -35,3 +35,6 @@ class BazaDanych:
             if employee.id == id:
                 return employee
         return None
+
+    def get_all_opinions(self) -> list[Opinia]:
+        return self.data["opinie"]
