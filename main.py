@@ -10,7 +10,7 @@ class ButtonFrame(tk.Frame):
         button_harmonogram = tk.Button(self, text="Harmonogram")
         button_opinie = tk.Button(self, text="Opinie")
         button_pracownicy = tk.Button(self, text="Pracownicy")
-        button_raporty = tk.Button(self, text="Raporty")
+        button_raporty = tk.Button(self, text="Raporty", command=lambda: self.root.report_frame.show_report())
         button_moje_konto = tk.Button(self, text="Moje konto")
         button_wyloguj = tk.Button(self, text="Wyloguj")
         button_harmonogram.pack(side="left", padx=10)
@@ -43,16 +43,31 @@ class OpinionFrame(tk.Frame):
         label = tk.Label(opinion_window, text=opinion.opinion_body)
         label.pack(padx=30, pady=30)
 
+
+class ReportFrame(tk.Frame):
+    def __init__(self, root: "System"):
+        super().__init__(root)
+        self.root = root
+        label = tk.Label(self, text="Raport")
+        label.pack(padx=30, pady=30)
+
+    def show_report(self):
+        self.pack()
+        self.root.opinion_frame.pack_forget()
+
+
 class System(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("HRNavigator")
-        self.geometry("700x300")
+        self.geometry("700x400")
         self.baza_danych = BazaDanych()
+        self.report_frame = ReportFrame(self)
+        self.opinion_frame = OpinionFrame(self)
         frame_button = ButtonFrame(self)
         frame_button.pack(side="top", fill="x")
-        frame_opinion = OpinionFrame(self)
-        frame_opinion.pack()
+        self.opinion_frame.pack()
+
 
 
 if __name__ == "__main__":
