@@ -8,9 +8,9 @@ class ButtonFrame(tk.Frame):
         super().__init__(root)
         self.root = root
         button_harmonogram = tk.Button(self, text="Harmonogram")
-        button_opinie = tk.Button(self, text="Opinie")
+        button_opinie = tk.Button(self, text="Opinie", command=lambda: self.root.show_opinion_frame())
         button_pracownicy = tk.Button(self, text="Pracownicy")
-        button_raporty = tk.Button(self, text="Raporty", command=lambda: self.root.report_frame.show_report())
+        button_raporty = tk.Button(self, text="Raporty", command=lambda: self.root.show_report_frame())
         button_moje_konto = tk.Button(self, text="Moje konto")
         button_wyloguj = tk.Button(self, text="Wyloguj")
         button_harmonogram.pack(side="left", padx=10)
@@ -22,7 +22,7 @@ class ButtonFrame(tk.Frame):
 
 
 class OpinionFrame(tk.Frame):
-    def __init__(self, root: "System"):
+    def __init__(self, root):
         super().__init__(root)
         self.root = root
 
@@ -61,13 +61,30 @@ class System(tk.Tk):
         super().__init__()
         self.title("HRNavigator")
         self.geometry("700x400")
+
         self.baza_danych = BazaDanych()
-        self.report_frame = ReportFrame(self)
-        self.opinion_frame = OpinionFrame(self)
+
+        self.frames = {
+            # 'harmonogram': ScheduleFrame(),
+            'opinie': OpinionFrame(self),
+            # 'pracownicy': EmployeesFrame(),
+            'raporty': ReportFrame(self)
+        }
+
+        self.current_frame = self.frames['opinie']
         frame_button = ButtonFrame(self)
         frame_button.pack(side="top", fill="x")
-        self.opinion_frame.pack()
 
+    def show_frame(self, frame_name: str):
+        self.current_frame.pack_forget()
+        self.current_frame = self.frames[frame_name]
+        self.current_frame.pack()
+
+    def show_opinion_frame(self):
+        self.show_frame('opinie')
+
+    def show_report_frame(self):
+        self.show_frame('raporty')
 
 
 if __name__ == "__main__":
