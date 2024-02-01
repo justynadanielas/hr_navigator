@@ -38,3 +38,6 @@ class BazaDanych:
 
     def get_all_opinions(self) -> list[Opinia]:
         return self.data["opinie"]
+
+    def delete_opinion(self, opinion):
+        self.data['opinie'].remove(opinion)
