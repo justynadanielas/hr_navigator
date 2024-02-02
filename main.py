@@ -9,9 +9,9 @@ class ButtonFrame(tk.Frame):
         super().__init__(root)
         self.root = root
         button_harmonogram = tk.Button(self, text="Harmonogram")
-        button_opinie = tk.Button(self, text="Opinie", command=lambda: self.root.show_opinion_frame())
+        button_opinie = tk.Button(self, text="Opinie", command=self.root.show_opinion_frame)
         button_pracownicy = tk.Button(self, text="Pracownicy")
-        button_raporty = tk.Button(self, text="Raporty", command=lambda: self.root.show_report_frame())
+        button_raporty = tk.Button(self, text="Raporty", command=self.root.show_report_frame)
         button_moje_konto = tk.Button(self, text="Moje konto")
         button_wyloguj = tk.Button(self, text="Wyloguj")
         button_harmonogram.pack(side="left", padx=10)
@@ -48,6 +48,8 @@ class OpinionFrame(tk.Frame):
             button_edytuj.grid(row=i, column=2)
             button_usun = tk.Button(self, text="Usuń", command=lambda o=opinion: self.delete_opinion(o))
             button_usun.grid(row=i, column=3)
+        button_dodaj_opinie = tk.Button(self, text="Dodaj opinię", command=self.root.show_add_opinion_frame)
+        button_dodaj_opinie.grid(row=len(opinions), column=3)
 
     def edit_opinion(self, opinion):
         new_opinion = simpledialog.askstring(
@@ -62,6 +64,37 @@ class OpinionFrame(tk.Frame):
     def delete_opinion(self, opinion):
         self.root.baza_danych.delete_opinion(opinion)
         self.refresh_opinion_frame()
+
+
+class AddOpinionFrame(tk.Frame):
+    def __init__(self, root: "System"):
+        super().__init__(root)
+        self.root = root
+        self.refresh_add_opinion_frame()
+
+    def refresh_add_opinion_frame(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+        employees = self.root.baza_danych.get_all_employees()
+        employees_names = []
+        for employee in employees:
+            employees_names.append(f"{employee.imie} {employee.nazwisko}")
+
+        var = tk.Variable(value=employees_names)
+        listbox = tk.Listbox(
+            self,
+            listvariable=var,
+            height=6,
+            selectmode=tk.SINGLE)
+
+        listbox.pack(fill=tk.X, expand=False)
+        text = tk.Text(self, height=6)
+        text.pack(fill=tk.X, expand=False)
+        button = tk.Button(self, text="Wyślij opinię", command=self.submit_opinion)
+        button.pack()
+
+    def submit_opinion(self):
+        pass
 
 
 class ReportFrame(tk.Frame):
@@ -88,7 +121,8 @@ class System(tk.Tk):
             # 'harmonogram': ScheduleFrame(),
             'opinie': OpinionFrame(self),
             # 'pracownicy': EmployeesFrame(),
-            'raporty': ReportFrame(self)
+            'raporty': ReportFrame(self),
+            'dodaj opinię': AddOpinionFrame(self)
         }
 
         self.current_frame = self.frames['opinie']
@@ -105,6 +139,9 @@ class System(tk.Tk):
 
     def show_report_frame(self):
         self.show_frame('raporty')
+
+    def show_add_opinion_frame(self):
+        self.show_frame('dodaj opinię')
 
 
 if __name__ == "__main__":

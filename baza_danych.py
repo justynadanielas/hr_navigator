@@ -5,7 +5,7 @@ from pracownik_szeregowy import PracownikSzeregowy
 class BazaDanych:
     def __init__(self):
         self.data = {}
-        self.data["lista_pracownikow"] = [
+        self.data["pracownicy"] = [
             PracownikSzeregowy(1, 'maslo', 'Adam', 'Adamski'),
             PracownikSzeregowy(2, 'maslo', 'Jan', 'Kowalski'),
             PracownikSzeregowy(3, 'maslo', 'Anna', 'Nowak'),
@@ -28,16 +28,23 @@ class BazaDanych:
 
     # to niekoniecznie potrzebne
     def add_employee(self, employee: PracownikSzeregowy):
-        self.data["lista_pracownikow"].append(employee)
+        self.data["pracownicy"].append(employee)
 
     def get_employee_by_id(self, id: int) -> PracownikSzeregowy | None:
-        for employee in self.data["lista_pracownikow"]:
+        for employee in self.data["pracownicy"]:
             if employee.id == id:
                 return employee
         return None
 
+    def get_all_employees(self) -> list[PracownikSzeregowy]:
+        return self.data["pracownicy"]
+
     def get_all_opinions(self) -> list[Opinia]:
         return self.data["opinie"]
+
+    def add_opinion(self, author_employee: PracownikSzeregowy, judged_employee: PracownikSzeregowy, opinion_body: str):
+        id = len(self.data["opinie"])
+        self.data["opinie"].append(Opinia(id, author_employee, judged_employee, opinion_body))
 
     def delete_opinion(self, opinion):
         self.data['opinie'].remove(opinion)
