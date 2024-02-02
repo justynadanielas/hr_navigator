@@ -48,3 +48,9 @@ class BazaDanych:
 
     def delete_opinion(self, opinion):
         self.data['opinie'].remove(opinion)
+
+    def get_user(self, username: str, password: str) -> PracownikSzeregowy | None:
+        for pracownik in self.data["pracownicy"]:
+            if username == str(pracownik.id) and password == pracownik.haslo:
+                return pracownik
+        return None

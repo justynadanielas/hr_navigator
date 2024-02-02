@@ -17,4 +17,6 @@ class PracownikSzeregowy:
         self.harmonogram = harmonogram
         self.raport = raport
         self.oceny: list = []
-        
+
+    def get_full_name(self):
+        return f"{self.imie} {self.nazwisko}"
