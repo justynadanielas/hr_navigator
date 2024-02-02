@@ -16,6 +16,7 @@ class System(tk.Tk):
         self.geometry("700x400")
 
         self.baza_danych = BazaDanych()
+        self.current_user: PracownikSzeregowy | None = None
 
         self.frames = {
             'login': LoginFrame(self),
@@ -27,7 +28,6 @@ class System(tk.Tk):
         }
 
         self.current_frame = self.frames['opinie']
-        self.current_user: PracownikSzeregowy | None = None
         self.frame_button = ButtonFrame(self)
         self.frame_button.pack(side="top", fill="x")
 
@@ -51,6 +51,7 @@ class System(tk.Tk):
 
     def show_report_frame(self):
         self.show_frame('raporty')
+        self.frames['raporty'].refresh_report_frame()
 
     def show_button_frame(self):
         # self.frame_button.pack_forget()

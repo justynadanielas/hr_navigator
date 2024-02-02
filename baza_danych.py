@@ -1,5 +1,6 @@
 from opinia import Opinia
 from pracownik_szeregowy import PracownikSzeregowy
+from raport import Raport
 
 
 class BazaDanych:
@@ -24,6 +25,13 @@ class BazaDanych:
             Opinia(8, self.get_employee_by_id(3), self.get_employee_by_id(1), "Pracownik godny zaufania"),
             Opinia(9, self.get_employee_by_id(4), self.get_employee_by_id(2), "Rzetelna i dokładna praca"),
             Opinia(10, self.get_employee_by_id(1), self.get_employee_by_id(5), "Wysoka jakość usług")
+        ]
+
+        self.data["raporty"] = [
+            Raport(1, self.get_employee_by_id(1), "Ogólnie spoko"),
+            Raport(2, self.get_employee_by_id(2), "Ogólnie nieźle"),
+            Raport(3, self.get_employee_by_id(3), "Ogólnie daje radę"),
+            Raport(4, self.get_employee_by_id(4), "Ogólnie miła")
         ]
 
     # to niekoniecznie potrzebne
@@ -54,3 +62,12 @@ class BazaDanych:
             if username == str(pracownik.id) and password == pracownik.haslo:
                 return pracownik
         return None
+
+    # def get_report(self, user: PracownikSzeregowy) -> Raport | None:
+    #     for report in self.data['raporty']:
+    #         if user.id == report.judged_employee.id:
+    #             return report
+    #     return None
+
+    def get_all_reports(self):
+        return self.data['raporty']
