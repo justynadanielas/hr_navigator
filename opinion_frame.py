@@ -19,24 +19,34 @@ class OpinionFrame(tk.Frame):
             widget.destroy()
 
         opinions = self.root.baza_danych.get_all_opinions()
-        for i, opinion in enumerate(opinions):
+        label_opinion_header = tk.Label(self, text="Treść opinii")
+        label_opinion_header.grid(row=0, column=0, padx=20)
+        label_author_employee_header = tk.Label(self, text="Osoba opiniująca")
+        label_author_employee_header.grid(row=0, column=1, padx=20)
+        label_judged_employee_header = tk.Label(self, text="Osoba opiniowana")
+        label_judged_employee_header.grid(row=0, column=2, padx=20)
+        for i, opinion in enumerate(opinions, start=1):
             # jak dodać nagłówki "osoba opiniująca" i "osoba opiniowana"?
             # jak to wyrównać, chyba trzeba znów użyć grid?
             author_employee_name = opinion.author_employee.imie + " " + opinion.author_employee.nazwisko
             judged_employee_name = opinion.judged_employee.imie + " " + opinion.judged_employee.nazwisko
-            label = tk.Label(
-                self,
-                text=opinion.opinion_body[:15] + f"... {author_employee_name}  {judged_employee_name}"
-            )
-            label.grid(row=i, column=0, padx=100)
+            label_opinion_body = tk.Label(self, text=opinion.opinion_body[:15] + "...")
+            label_opinion_body.grid(row=i, column=0, padx=20)
+
+            label_author_employee_name = tk.Label(self, text=author_employee_name)
+            label_author_employee_name.grid(row=i, column=1, padx=20)
+
+            label_judged_employee_name = tk.Label(self, text=judged_employee_name)
+            label_judged_employee_name.grid(row=i, column=2, padx=20)
+
             button_wyswietl = tk.Button(self, text="Wyświetl", command=lambda o=opinion: self.show_opinion(o))
-            button_wyswietl.grid(row=i, column=1)
+            button_wyswietl.grid(row=i, column=3)
             button_edytuj = tk.Button(self, text="Edytuj", command=lambda o=opinion: self.edit_opinion(o))
-            button_edytuj.grid(row=i, column=2)
+            button_edytuj.grid(row=i, column=4)
             button_usun = tk.Button(self, text="Usuń", command=lambda o=opinion: self.delete_opinion(o))
-            button_usun.grid(row=i, column=3)
+            button_usun.grid(row=i, column=5)
         button_dodaj_opinie = tk.Button(self, text="Dodaj opinię", command=self.root.show_add_opinion_frame)
-        button_dodaj_opinie.grid(row=len(opinions), column=3)
+        button_dodaj_opinie.grid(row=len(opinions)+1, column=5)
 
     def edit_opinion(self, opinion):
         new_opinion = simpledialog.askstring(
