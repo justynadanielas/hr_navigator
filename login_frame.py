@@ -6,6 +6,11 @@ class LoginFrame(tk.Frame):
     def __init__(self, root: "System"):
         super().__init__(root)
         self.root = root
+        self.refresh_login_frame()
+
+    def refresh_login_frame(self):
+        for widget in self.winfo_children():
+            widget.destroy()
 
         tk.Label(self, text="Username:").grid(row=0, column=0, sticky="e")
         tk.Label(self, text="Password:").grid(row=1, column=0, sticky="e")
@@ -26,7 +31,7 @@ class LoginFrame(tk.Frame):
         # Replace this with your actual validation logic
         if user:
             self.root.current_user = user
-            messagebox.showinfo("Login Successful", "Welcome, " + username + "!")
+            # messagebox.showinfo("Login Successful", "Welcome, " + username + "!")
             self.root.show_button_frame()
             self.root.show_opinion_frame()
         else:

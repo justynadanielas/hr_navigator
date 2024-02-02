@@ -39,6 +39,12 @@ class System(tk.Tk):
     def show_login_frame(self):
         self.show_frame('login')
 
+    def handle_logout(self):
+        self.current_user = None
+        self.frame_button.refresh_button_frame()
+        self.show_login_frame()
+        self.frames['login'].refresh_login_frame()
+
     def show_opinion_frame(self):
         self.show_frame('opinie')
         self.frames['opinie'].refresh_opinion_frame()

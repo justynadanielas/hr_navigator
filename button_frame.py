@@ -16,7 +16,6 @@ class ButtonFrame(tk.Frame):
         button_pracownicy = tk.Button(self, text="Pracownicy")
         button_raporty = tk.Button(self, text="Raporty", command=self.root.show_report_frame)
         button_moje_konto = tk.Button(self, text="Moje konto")
-        button_wyloguj = tk.Button(self, text="Wyloguj", command=self.root.show_login_frame)
         button_harmonogram.pack(side="left", padx=10)
         button_opinie.pack(side="left", padx=10)
         button_pracownicy.pack(side="left", padx=10)
@@ -25,4 +24,8 @@ class ButtonFrame(tk.Frame):
         if self.root.current_user:
             label_welcome_user = tk.Label(self, text=f"Witaj, {self.root.current_user.get_full_name()}")
             label_welcome_user.pack(side="left", padx=10)
+            button_wyloguj = tk.Button(self, text="Wyloguj", command=self.root.handle_logout)
+        else:
+            button_wyloguj = tk.Button(self, text="Zaloguj", command=self.root.show_login_frame)
+
         button_wyloguj.pack(side="right", padx=10)
