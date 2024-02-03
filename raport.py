@@ -6,8 +6,14 @@ class Raport:
         self,
         id: int,
         judged_employee: PracownikSzeregowy,
-        report_body: str
+        date: str,
+        report_body: str,
+        is_confirmed: bool = False,
+        is_rejected: bool = False
     ):
         self.id = id
         self.judged_employee = judged_employee
+        self.date = date
         self.report_body = report_body
+        self.is_confirmed = is_confirmed
+        self.is_rejected = is_rejected

@@ -26,8 +26,6 @@ class OpinionFrame(tk.Frame):
         label_judged_employee_header = tk.Label(self, text="Osoba opiniowana")
         label_judged_employee_header.grid(row=0, column=2, padx=20)
         for i, opinion in enumerate(opinions, start=1):
-            # jak dodać nagłówki "osoba opiniująca" i "osoba opiniowana"?
-            # jak to wyrównać, chyba trzeba znów użyć grid?
             author_employee_name = opinion.author_employee.imie + " " + opinion.author_employee.nazwisko
             judged_employee_name = opinion.judged_employee.imie + " " + opinion.judged_employee.nazwisko
             label_opinion_body = tk.Label(self, text=opinion.opinion_body[:15] + "...")

@@ -28,15 +28,11 @@ class BazaDanych:
         ]
 
         self.data["raporty"] = [
-            Raport(1, self.get_employee_by_id(1), "Ogólnie spoko"),
-            Raport(2, self.get_employee_by_id(2), "Ogólnie nieźle"),
-            Raport(3, self.get_employee_by_id(3), "Ogólnie daje radę"),
-            Raport(4, self.get_employee_by_id(4), "Ogólnie miła")
+            Raport(1, self.get_employee_by_id(1), "2024-01-01", "Ogólnie spoko"),
+            Raport(2, self.get_employee_by_id(2), "2024-01-01", "Ogólnie nieźle"),
+            Raport(3, self.get_employee_by_id(3), "2024-01-01", "Ogólnie daje radę"),
+            Raport(4, self.get_employee_by_id(4), "2024-01-01", "Ogólnie miła")
         ]
-
-    # to niekoniecznie potrzebne
-    def add_employee(self, employee: PracownikSzeregowy):
-        self.data["pracownicy"].append(employee)
 
     def get_employee_by_id(self, id: int) -> PracownikSzeregowy | None:
         for employee in self.data["pracownicy"]:
@@ -69,5 +65,9 @@ class BazaDanych:
     #             return report
     #     return None
 
-    def get_all_reports(self):
+    def get_all_reports(self) -> list[Raport]:
         return self.data['raporty']
+
+    def get_reports_by_user_id(self, user_id: int) -> list[Raport]:
+        # standardowe filtrowanie
+        return [report for report in self.data['raporty'] if report.judged_employee.id == user_id]
