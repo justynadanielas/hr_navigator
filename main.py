@@ -13,10 +13,12 @@ class System(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("HRNavigator")
-        self.geometry("700x400")
+        self.geometry("750x400")
 
         self.baza_danych = BazaDanych()
-        self.current_user: PracownikSzeregowy | None = None
+        # self.current_user: PracownikSzeregowy | None = None
+        # na potrzeby testów
+        self.current_user: PracownikSzeregowy | None = self.baza_danych.get_employee_by_id(3)
 
         self.frames = {
             'login': LoginFrame(self),
