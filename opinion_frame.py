@@ -18,46 +18,6 @@ class OpinionFrame(tk.Frame):
         for widget in self.winfo_children():
             widget.destroy()
 
-        # trzeba w tych forach zapodać counter zamiast enumerate
-        # for i, opinion in enumerate(opinions, start=1):
-        #     author_employee_name = opinion.author_employee.imie + " " + opinion.author_employee.nazwisko
-        #     judged_employee_name = opinion.judged_employee.imie + " " + opinion.judged_employee.nazwisko
-        #     if opinion.author_employee != self.root.current_user:
-        #         label_opinion_body = tk.Label(self, text=opinion.opinion_body[:15] + "...")
-        #         label_opinion_body.grid(row=i, column=0, padx=20)
-        #
-        #         label_author_employee_name = tk.Label(self, text=author_employee_name)
-        #         label_author_employee_name.grid(row=i, column=1, padx=20)
-        #
-        #         label_judged_employee_name = tk.Label(self, text=judged_employee_name)
-        #         label_judged_employee_name.grid(row=i, column=2, padx=20)
-        #
-        #         button_wyswietl = tk.Button(self, text="Wyświetl", command=lambda o=opinion: self.show_opinion(o))
-        #         button_wyswietl.grid(row=i, column=3)
-
-        # for i, opinion in enumerate(opinions, start=1):
-        #     author_employee_name = opinion.author_employee.imie + " " + opinion.author_employee.nazwisko
-        #     judged_employee_name = opinion.judged_employee.imie + " " + opinion.judged_employee.nazwisko
-        #
-        #     if opinion.author_employee == self.root.current_user:
-        #         label_opinion_body = tk.Label(self, text=opinion.opinion_body[:15] + "...")
-        #         label_opinion_body.grid(row=i, column=0, padx=20)
-        #
-        #         label_author_employee_name = tk.Label(self, text=author_employee_name)
-        #         label_author_employee_name.grid(row=i, column=1, padx=20)
-        #
-        #         label_judged_employee_name = tk.Label(self, text=judged_employee_name)
-        #         label_judged_employee_name.grid(row=i, column=2, padx=20)
-        #
-        #         button_wyswietl = tk.Button(self, text="Wyświetl", command=lambda o=opinion: self.show_opinion(o))
-        #         button_wyswietl.grid(row=i, column=3)
-        #         button_edytuj = tk.Button(self, text="Edytuj", command=lambda o=opinion: self.edit_opinion(o))
-        #         button_edytuj.grid(row=i, column=4)
-        #         button_usun = tk.Button(self, text="Usuń", command=lambda o=opinion: self.delete_opinion(o))
-        #         button_usun.grid(row=i, column=5)
-        # button_dodaj_opinie = tk.Button(self, text="Dodaj opinię", command=self.root.show_add_opinion_frame)
-        # button_dodaj_opinie.grid(row=len(opinions)+1, column=5)
-
         others_opinions_frame = tk.Frame(self)
         others_opinions_frame.pack()
         my_opinions_frame = tk.Frame(self)

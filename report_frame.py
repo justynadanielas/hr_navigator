@@ -24,7 +24,6 @@ class ReportFrame(tk.Frame):
         messagebox.showinfo("Raport", "Raport odrzucony")
         self.refresh_report_frame()
 
-
     def refresh_report_frame(self):
         for widget in self.winfo_children():
             widget.destroy()

@@ -11,7 +11,10 @@ class BazaDanych:
             PracownikSzeregowy(2, 'maslo', 'Jan', 'Kowalski'),
             PracownikSzeregowy(3, 'maslo', 'Anna', 'Nowak'),
             PracownikSzeregowy(4, 'maslo', 'Marta', 'Wiśniewska'),
-            PracownikSzeregowy(5, 'maslo', 'Piotr', 'Kaczmarek')
+            PracownikSzeregowy(5, 'maslo', 'Piotr', 'Kaczmarek'),
+            PracownikSzeregowy(6, 'maslo', 'Piotr', 'Kaczmarek'),
+            PracownikSzeregowy(7, 'maslo', 'Piotr', 'Kaczmarek'),
+            PracownikSzeregowy(8, 'maslo', 'Piotr', 'Kaczmarek')
         ]
 
         self.data["opinie"] = [
@@ -58,12 +61,6 @@ class BazaDanych:
             if username == str(pracownik.id) and password == pracownik.haslo:
                 return pracownik
         return None
-
-    # def get_report(self, user: PracownikSzeregowy) -> Raport | None:
-    #     for report in self.data['raporty']:
-    #         if user.id == report.judged_employee.id:
-    #             return report
-    #     return None
 
     def get_all_reports(self) -> list[Raport]:
         return self.data['raporty']

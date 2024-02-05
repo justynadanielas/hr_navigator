@@ -23,8 +23,10 @@ class AddOpinionFrame(tk.Frame):
             selectmode=tk.SINGLE)
 
         self.employee_listbox.pack(fill=tk.X, expand=False)
+
         opinion_text = tk.Text(self, height=6)
         opinion_text.pack(fill=tk.X, expand=False)
+
         # opinion_text.get() wyciąga tekst z pola tekstowego opinii
         # 1.0 i tk.END to dziwny styl indeksowania tutaj
         # opinion_text = opinion_text.get("1.0", tk.END)

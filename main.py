@@ -13,12 +13,12 @@ class System(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("HRNavigator")
-        self.geometry("750x400")
+        self.geometry("700x450")
 
         self.baza_danych = BazaDanych()
-        # self.current_user: PracownikSzeregowy | None = None
+        self.current_user: PracownikSzeregowy | None = None
         # na potrzeby testów
-        self.current_user: PracownikSzeregowy | None = self.baza_danych.get_employee_by_id(3)
+        # self.current_user: PracownikSzeregowy | None = self.baza_danych.get_employee_by_id(3)
 
         self.frames = {
             'login': LoginFrame(self),
@@ -30,8 +30,8 @@ class System(tk.Tk):
         }
 
         self.current_frame = self.frames['opinie']
-        self.frame_button = ButtonFrame(self)
-        self.frame_button.pack(side="top", fill="x")
+        self.button_frame = ButtonFrame(self)
+        self.button_frame.pack(side="top", fill="x")
 
     def show_frame(self, frame_name: str):
         self.current_frame.pack_forget()
@@ -43,7 +43,7 @@ class System(tk.Tk):
 
     def handle_logout(self):
         self.current_user = None
-        self.frame_button.refresh_button_frame()
+        self.button_frame.refresh_button_frame()
         self.show_login_frame()
         self.frames['login'].refresh_login_frame()
 
@@ -57,7 +57,7 @@ class System(tk.Tk):
 
     def show_button_frame(self):
         # self.frame_button.pack_forget()
-        self.frame_button.refresh_button_frame()
+        self.button_frame.refresh_button_frame()
         # self.frame_button.pack(side="top", fill="x")
 
     def show_add_opinion_frame(self):
