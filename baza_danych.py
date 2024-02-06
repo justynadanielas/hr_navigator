@@ -133,7 +133,7 @@ class BazaDanych:
 
     def get_all_employees(self) -> list[PracownikSzeregowy]:
         employees = []
-        with open('pracownicy.csv', 'r') as file:
+        with open('pracownicy.csv', 'r', encoding="utf-8") as file:
             for line in file:
                 data = line.strip().split(',')
                 employee = PracownikSzeregowy(int(data[0]), data[1], data[2], data[3])
@@ -145,7 +145,7 @@ class BazaDanych:
 
     def get_all_opinions(self) -> list[Opinia]:
         opinions = []
-        with open('opinie.csv', 'r') as file:
+        with open('opinie.csv', 'r', encoding="utf-8") as file:
             for line in file:
                 data = line.strip().split(',')
                 opinion = Opinia(int(data[0]), self.get_employee_by_id(int(data[1])),
@@ -171,7 +171,7 @@ class BazaDanych:
 
     def get_all_reports(self) -> list[Raport]:
         reports = []
-        with open('raporty.csv', 'r') as file:
+        with open('raporty.csv', 'r', encoding="utf-8") as file:
             for line in file:
                 data = line.strip().split(',')
                 report = Raport(int(data[0]), self.get_employee_by_id(int(data[1])), data[2], data[3])
