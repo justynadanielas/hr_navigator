@@ -21,7 +21,7 @@ class System(tk.Tk):
         self.current_user: PracownikSzeregowy | None = None
 
         # na potrzeby testów
-        # self.current_user: PracownikSzeregowy | None = self.baza_danych.get_employee_by_id(3)
+        self.current_user: PracownikSzeregowy | None = self.baza_danych.get_employee_by_id(3)
 
         self.frames = {
             'login': LoginFrame(self),

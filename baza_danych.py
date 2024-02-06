@@ -3,6 +3,7 @@ from pracownik_szeregowy import PracownikSzeregowy
 from raport import Raport
 import sqlite3
 from sqlite3 import Error
+from typing import Literal, List
 
 
 class BazaDanych:
@@ -153,12 +154,36 @@ class BazaDanych:
                 reports.append(report)
         return reports
 
+    def save_reports_to_csv(self):
+        with open('raporty.csv', 'w', encoding="utf-8") as file:
+            for report in self.data['raporty']:
+                file.write(f"{report.id},{report.judged_employee.id},{report.date},{report.report_body}\n")
+
+    def save_opinions_to_csv(self):
+        with open('opinie.csv', 'w', encoding="utf-8") as file:
+            for opinion in self.data['opinie']:
+                file.write(f"{opinion.id},{opinion.author_employee.id},{opinion.judged_employee.id},{opinion.opinion_body}\n")
+
+    def save_employees_to_csv(self):
+        with open('pracownicy.csv', 'w', encoding="utf-8") as file:
+            for employee in self.data['pracownicy']:
+                file.write(f"{employee.id},{employee.haslo},{employee.imie},{employee.nazwisko}\n")
+
+    def save_data_to_csv(self):
+        self.save_opinions_to_csv()
+        self.save_reports_to_csv()
+        self.save_employees_to_csv()
+
     def get_reports_by_user_id(self, user_id: int) -> list[Raport]:
         # standardowe filtrowanie
         return [report for report in self.get_all_reports() if report.judged_employee.id == user_id]
+
 
 if __name__=="__main__":
     baza_danych = BazaDanych("data")
     # print(baza_danych.get_all_employees())
     # print(foo := baza_danych.get_all_opinions())
     print(baza_danych.get_all_reports())
+    baza_danych.save_reports_to_csv()
+    baza_danych.save_opinions_to_csv()
+    baza_danych.save_employees_to_csv()

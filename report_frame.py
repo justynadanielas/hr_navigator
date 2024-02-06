@@ -29,7 +29,7 @@ class ReportFrame(tk.Frame):
             widget.destroy()
 
         if not self.root.current_user:
-            label_report_header = tk.Label(self, text="Brak raportów")
+            label_report_header = tk.Label(self, text="Brak zalogowanego użytkownika")
             label_report_header.grid(row=0, column=0, padx=20)
             return
 
@@ -40,7 +40,6 @@ class ReportFrame(tk.Frame):
         label_report_date_header = tk.Label(self, text="Data wystawienia")
         label_report_date_header.grid(row=0, column=1, padx=20)
 
-        # tu mozna dodać napis "brak raportu"
         for report in reports:
             if report.judged_employee.id == self.root.current_user.id:
                 label_report_body = tk.Label(self, text=report.report_body)

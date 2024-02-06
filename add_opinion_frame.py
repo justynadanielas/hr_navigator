@@ -10,7 +10,9 @@ class AddOpinionFrame(tk.Frame):
     def refresh_add_opinion_frame(self):
         for widget in self.winfo_children():
             widget.destroy()
+
         employees = self.root.baza_danych.get_all_employees()
+
         employees_names = []
         for employee in employees:
             employees_names.append(f"{employee.id}. {employee.imie} {employee.nazwisko}")
@@ -37,7 +39,7 @@ class AddOpinionFrame(tk.Frame):
         )
         button.pack()
 
-    def submit_opinion(self, opinion_body):
+    def submit_opinion(self, opinion_body: str):
         selected_index = self.employee_listbox.curselection()
         judged_employee = None
 

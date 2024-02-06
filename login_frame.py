@@ -12,8 +12,8 @@ class LoginFrame(tk.Frame):
         for widget in self.winfo_children():
             widget.destroy()
 
-        tk.Label(self, text="Username:").grid(row=0, column=0, sticky="e")
-        tk.Label(self, text="Password:").grid(row=1, column=0, sticky="e")
+        tk.Label(self, text="Login:").grid(row=0, column=0, sticky="e")
+        tk.Label(self, text="Hasło:").grid(row=1, column=0, sticky="e")
 
         self.username_entry = tk.Entry(self)
         self.password_entry = tk.Entry(self, show="*")  # Entry widget for password with a '*' mask
