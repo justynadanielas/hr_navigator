@@ -11,9 +11,9 @@ class ButtonFrame(tk.Frame):
         for widget in self.winfo_children():
             widget.destroy()
 
-        button_harmonogram = tk.Button(self, text="Harmonogram")
+        button_harmonogram = tk.Button(self, text="Harmonogram", command=self.root.show_schedule_frame)
         button_opinie = tk.Button(self, text="Opinie", command=self.root.show_opinion_frame)
-        button_pracownicy = tk.Button(self, text="Pracownicy")
+        button_pracownicy = tk.Button(self, text="Pracownicy", command=self.root.show_employees_frame)
         button_raporty = tk.Button(self, text="Raporty", command=self.root.show_report_frame)
         button_moje_konto = tk.Button(self, text="Moje konto")
         button_harmonogram.pack(side="left", padx=10)

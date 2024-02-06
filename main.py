@@ -7,6 +7,8 @@ from login_frame import LoginFrame
 from opinion_frame import OpinionFrame
 from pracownik_szeregowy import PracownikSzeregowy
 from report_frame import ReportFrame
+from pracownicy_frame import EmployeesFrame
+from harmonogram_frame import ScheduleFrame
 
 
 class System(tk.Tk):
@@ -15,16 +17,17 @@ class System(tk.Tk):
         self.title("HRNavigator")
         self.geometry("700x450")
 
-        self.baza_danych = BazaDanych()
+        self.baza_danych = BazaDanych("moja_baza.db")
         self.current_user: PracownikSzeregowy | None = None
+
         # na potrzeby testów
         # self.current_user: PracownikSzeregowy | None = self.baza_danych.get_employee_by_id(3)
 
         self.frames = {
             'login': LoginFrame(self),
-            # 'harmonogram': ScheduleFrame(),
+            'harmonogram': ScheduleFrame(self),
             'opinie': OpinionFrame(self),
-            # 'pracownicy': EmployeesFrame(),
+            'pracownicy': EmployeesFrame(self),
             'raporty': ReportFrame(self),
             'dodaj opinię': AddOpinionFrame(self)
         }
@@ -51,20 +54,44 @@ class System(tk.Tk):
         self.show_frame('opinie')
         self.frames['opinie'].refresh_opinion_frame()
 
+    def show_employees_frame(self):
+        self.show_frame('pracownicy')
+        self.frames['pracownicy'].refresh_employees_frame()
+
     def show_report_frame(self):
         self.show_frame('raporty')
         self.frames['raporty'].refresh_report_frame()
 
+    def show_schedule_frame(self):
+        self.show_frame('harmonogram')
+        self.frames['harmonogram'].refresh_schedule_frame()
+
+    def show_my_account_frame(self):  # Dodana metoda
+        # Tutaj umieść kod do wyświetlania ramki Moje konto
+        pass
+
     def show_button_frame(self):
-        # self.frame_button.pack_forget()
         self.button_frame.refresh_button_frame()
-        # self.frame_button.pack(side="top", fill="x")
 
     def show_add_opinion_frame(self):
         self.show_frame('dodaj opinię')
 
 
 if __name__ == "__main__":
+    """baza = BazaDanych('moja_baza.db')
+    # Dodanie danych
+
+    baza.dodaj_dane_do_tabeli("harmonogram", (1, "5.02.2024", "hala", "wierc dziury frezarką"))
+    baza.dodaj_dane_do_tabeli("harmonogram", (2, "5.02.2024", "hala", "frezuj detal"))
+    
+    baza.dodaj_dane_do_tabeli("pracownicy", (1,'Adam', 'Adamski', "sekcja hala"))
+    baza.dodaj_dane_do_tabeli("pracownicy", (2,'Jan', 'Kowalski', "sekcja hala"))
+    baza.dodaj_dane_do_tabeli("pracownicy", (3,'Anna', 'Nowak', "sekcja hala"))
+    baza.dodaj_dane_do_tabeli("pracownicy", (4,'Marta', 'Wiśniewska', "sekcja hala"))
+    baza.dodaj_dane_do_tabeli("pracownicy", (5,'Piotr', 'Kaczmarek', "sekcja hala"))
+    baza.dodaj_dane_do_tabeli("pracownicy", (6,'Andrzej', 'Kaczmarek', "sekcja hala"))
+    baza.dodaj_dane_do_tabeli("pracownicy", (7,'Jakub', 'Piotrkowski', "sekcja hala"))
+    baza.dodaj_dane_do_tabeli("pracownicy", (8,'Piotr', 'Baran', "sekcja hala"))"""
     root = System()
 
     # Run the Tkinter event loop

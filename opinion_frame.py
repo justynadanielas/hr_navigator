@@ -17,6 +17,10 @@ class OpinionFrame(tk.Frame):
     def refresh_opinion_frame(self):
         for widget in self.winfo_children():
             widget.destroy()
+        if not self.root.current_user:
+            label_no_user = tk.Label(self, text="Brak zalogowanego użytkownika.")
+            label_no_user.pack(padx=20, pady=5)
+            return
 
         others_opinions_frame = tk.Frame(self)
         others_opinions_frame.pack()
