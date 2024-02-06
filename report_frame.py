@@ -42,7 +42,7 @@ class ReportFrame(tk.Frame):
 
         # tu mozna dodać napis "brak raportu"
         for report in reports:
-            if report.judged_employee == self.root.current_user:
+            if report.judged_employee.id == self.root.current_user.id:
                 label_report_body = tk.Label(self, text=report.report_body)
                 label_report_body.grid(row=1, column=0, padx=20)
                 label_report_date = tk.Label(self, text=report.date)

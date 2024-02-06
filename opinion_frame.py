@@ -50,7 +50,7 @@ class OpinionFrame(tk.Frame):
         for opinion in opinions:
             author_employee_name = opinion.author_employee.imie + " " + opinion.author_employee.nazwisko
             judged_employee_name = opinion.judged_employee.imie + " " + opinion.judged_employee.nazwisko
-            if opinion.author_employee != self.root.current_user:
+            if opinion.author_employee.id != self.root.current_user.id:
                 label_opinion_body = tk.Label(others_opinions_frame, text=opinion.opinion_body[:15] + "...")
                 label_opinion_body.grid(row=others_opinions_counter, column=0, padx=20)
 
@@ -64,7 +64,7 @@ class OpinionFrame(tk.Frame):
                 button_wyswietl.grid(row=others_opinions_counter, column=3)
                 others_opinions_counter += 1
 
-            if opinion.author_employee == self.root.current_user:
+            if opinion.author_employee.id == self.root.current_user.id:
                 label_opinion_body = tk.Label(my_opinions_frame, text=opinion.opinion_body[:15] + "...")
                 label_opinion_body.grid(row=my_opinions_counter, column=0, padx=20)
 
