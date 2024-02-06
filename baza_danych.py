@@ -132,6 +132,7 @@ class BazaDanych:
     def add_opinion(self, author_employee: PracownikSzeregowy, judged_employee: PracownikSzeregowy, opinion_body: str):
         id = len(self.data["opinie"])
         self.data["opinie"].append(Opinia(id, author_employee, judged_employee, opinion_body))
+        self.save_opinions_to_csv()
 
     def delete_opinion(self, opinion):
         self.data['opinie'].remove(opinion)
@@ -155,7 +156,7 @@ class BazaDanych:
         return reports
 
     def save_reports_to_csv(self):
-        with open('raporty.csv', 'w', encoding="utf-8") as file:
+        with open('raporty2.csv', 'w', encoding="utf-8") as file:
             for report in self.data['raporty']:
                 file.write(f"{report.id},{report.judged_employee.id},{report.date},{report.report_body}\n")
 

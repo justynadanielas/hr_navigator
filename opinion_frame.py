@@ -93,7 +93,9 @@ class OpinionFrame(tk.Frame):
         if new_opinion is not None:
             opinion.opinion_body = new_opinion
         self.refresh_opinion_frame()
+        self.root.baza_danych.save_opinions_to_csv()
 
     def delete_opinion(self, opinion):
         self.root.baza_danych.delete_opinion(opinion)
         self.refresh_opinion_frame()
+        self.root.baza_danych.save_opinions_to_csv()
