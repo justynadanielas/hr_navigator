@@ -1,12 +1,12 @@
-from pracownik_szeregowy import PracownikSzeregowy
+from employee import Employee
 
 
-class Opinia:
+class Opinion:
     def __init__(
         self,
         id: int,
-        author_employee: PracownikSzeregowy,
-        judged_employee: PracownikSzeregowy,
+        author_employee: Employee,
+        judged_employee: Employee,
         opinion_body: str
     ):
         self.id = id

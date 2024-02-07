@@ -1,4 +1,4 @@
-class PracownikSzeregowy:
+class Employee:
     def __init__(
             self,
             id: int,

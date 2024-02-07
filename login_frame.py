@@ -27,7 +27,7 @@ class LoginFrame(tk.Frame):
     def validate_login(self):
         username = self.username_entry.get()
         password = self.password_entry.get()
-        user = self.root.baza_danych.get_user(username, password)
+        user = self.root.database.get_user(username, password)
         # Replace this with your actual validation logic
         if user:
             self.root.current_user = user

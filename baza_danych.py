@@ -1,15 +1,15 @@
-from opinia import Opinia
-from pracownik_szeregowy import PracownikSzeregowy
-from raport import Raport
+from opinion import Opinion
+from employee import Employee
+from report import Report
 import sqlite3
 from sqlite3 import Error
 from typing import Literal, List
 
 
-class BazaDanych:
-    def __init__(self, nazwa_bazy):
-        self.nazwa_bazy = nazwa_bazy
-        self.utworz_tabele()
+class Database:
+    def __init__(self, database_name):
+        self.database_name = database_name
+        self.create_table()
         self.data = {}
         self.data["pracownicy"] = self.load_employees()
 
@@ -17,8 +17,8 @@ class BazaDanych:
 
         self.data["raporty"] = self.load_reports()
 
-    def utworz_tabele(self):
-        conn = sqlite3.connect(self.nazwa_bazy)
+    def create_table(self):
+        conn = sqlite3.connect(self.database_name)
         cursor = conn.cursor()
 
         # Tabela pracownicy
@@ -44,46 +44,46 @@ class BazaDanych:
         conn.commit()
         conn.close()
 
-    def dodaj_dane_do_tabeli(self, tabela, dane):
+    def add_data_to_table(self, table, data):
         try:
-            conn = sqlite3.connect(self.nazwa_bazy)
+            conn = sqlite3.connect(self.database_name)
             cursor = conn.cursor()
 
-            placeholders = ', '.join(['?' for _ in dane])
-            query = f'INSERT INTO {tabela} VALUES ({placeholders})'
-            cursor.execute(query, tuple(dane))
+            placeholders = ', '.join(['?' for _ in data])
+            query = f'INSERT INTO {table} VALUES ({placeholders})'
+            cursor.execute(query, tuple(data))
 
             conn.commit()
             conn.close()
 
-            print(f'Dane zostały dodane do tabeli {tabela}.')
+            print(f'Dane zostały dodane do tabeli {table}.')
         except Exception as e:
             print(f'Błąd podczas dodawania danych: {e}')
 
-    def usun_wybrane_dane_z_tabeli(self, tabela, wiersz):
+    def delete_data_from_table(self, table, row):
         try:
-            conn = sqlite3.connect(self.nazwa_bazy)
+            conn = sqlite3.connect(self.database_name)
             cursor = conn.cursor()
 
-            cursor.execute(f'DELETE FROM {tabela} WHERE id = ?', (wiersz,))
+            cursor.execute(f'DELETE FROM {table} WHERE id = ?', (row,))
 
             conn.commit()
             conn.close()
 
-            print(f'Wiersz {wiersz} z tabeli {tabela} został usunięty.')
+            print(f'Wiersz {row} z tabeli {table} został usunięty.')
         except Exception as e:
             print(f'Błąd podczas usuwania danych: {e}')
 
-    def pobierz_dane_z_tabeli(self, tabela):
-        conn = sqlite3.connect(self.nazwa_bazy)
+    def get_data_from_table(self, table):
+        conn = sqlite3.connect(self.database_name)
         cursor = conn.cursor()
-        cursor.execute(f'SELECT * FROM {tabela}')
-        dane = cursor.fetchall()
+        cursor.execute(f'SELECT * FROM {table}')
+        data = cursor.fetchall()
         conn.close()
-        return dane
+        return data
 
     def get_employee_by_id(self, employee_id):
-        conn = sqlite3.connect(self.nazwa_bazy)
+        conn = sqlite3.connect(self.database_name)
         cursor = conn.cursor()
 
         query = "SELECT imie_pracownika, nazwisko_pracownika FROM pracownicy WHERE id = ?"
@@ -98,65 +98,65 @@ class BazaDanych:
         else:
             return None
 
-    def get_employee_by_id(self, id: int) -> PracownikSzeregowy | None:
+    def get_employee_by_id(self, id: int) -> Employee | None:
         for employee in self.data["pracownicy"]:
             if employee.id == id:
                 return employee
         return None
 
-    def get_all_employees(self) -> list[PracownikSzeregowy]:
+    def get_all_employees(self) -> list[Employee]:
         return self.data["pracownicy"]
 
-    def load_employees(self) -> list[PracownikSzeregowy]:
+    def load_employees(self) -> list[Employee]:
         employees = []
         with open('pracownicy.csv', 'r', encoding="utf-8") as file:
             for line in file:
                 data = line.strip().split(',')
-                employee = PracownikSzeregowy(int(data[0]), data[1], data[2], data[3])
+                employee = Employee(int(data[0]), data[1], data[2], data[3])
                 employees.append(employee)
         return employees
 
-    def get_all_opinions(self) -> list[Opinia]:
+    def get_all_opinions(self) -> list[Opinion]:
         return self.data["opinie"]
 
-    def load_opinions(self) -> list[Opinia]:
+    def load_opinions(self) -> list[Opinion]:
         opinions = []
         with open('opinie.csv', 'r', encoding="utf-8") as file:
             for line in file:
                 data = line.strip().split(',')
-                opinion = Opinia(int(data[0]), self.get_employee_by_id(int(data[1])),
-                                 self.get_employee_by_id(int(data[2])), data[3])
+                opinion = Opinion(int(data[0]), self.get_employee_by_id(int(data[1])),
+                                  self.get_employee_by_id(int(data[2])), data[3])
                 opinions.append(opinion)
         return opinions
 
-    def add_opinion(self, author_employee: PracownikSzeregowy, judged_employee: PracownikSzeregowy, opinion_body: str):
+    def add_opinion(self, author_employee: Employee, judged_employee: Employee, opinion_body: str):
         id = len(self.data["opinie"])
-        self.data["opinie"].append(Opinia(id, author_employee, judged_employee, opinion_body))
+        self.data["opinie"].append(Opinion(id, author_employee, judged_employee, opinion_body))
         self.save_opinions_to_csv()
 
     def delete_opinion(self, opinion):
         self.data['opinie'].remove(opinion)
 
-    def get_user(self, username: str, password: str) -> PracownikSzeregowy | None:
-        for pracownik in self.get_all_employees():
-            if username == str(pracownik.id) and password == pracownik.haslo:
-                return pracownik
+    def get_user(self, username: str, password: str) -> Employee | None:
+        for employee in self.get_all_employees():
+            if username == str(employee.id) and password == employee.haslo:
+                return employee
         return None
 
-    def get_all_reports(self) -> list[Raport]:
+    def get_all_reports(self) -> list[Report]:
         return self.data['raporty']
 
-    def load_reports(self) -> list[Raport]:
+    def load_reports(self) -> list[Report]:
         reports = []
         with open('raporty.csv', 'r', encoding="utf-8") as file:
             for line in file:
                 data = line.strip().split(',')
-                report = Raport(int(data[0]), self.get_employee_by_id(int(data[1])), data[2], data[3])
+                report = Report(int(data[0]), self.get_employee_by_id(int(data[1])), data[2], data[3])
                 reports.append(report)
         return reports
 
     def save_reports_to_csv(self):
-        with open('raporty2.csv', 'w', encoding="utf-8") as file:
+        with open('raporty.csv', 'w', encoding="utf-8") as file:
             for report in self.data['raporty']:
                 file.write(f"{report.id},{report.judged_employee.id},{report.date},{report.report_body}\n")
 
@@ -175,13 +175,13 @@ class BazaDanych:
         self.save_reports_to_csv()
         self.save_employees_to_csv()
 
-    def get_reports_by_user_id(self, user_id: int) -> list[Raport]:
+    def get_reports_by_user_id(self, user_id: int) -> list[Report]:
         # standardowe filtrowanie
         return [report for report in self.get_all_reports() if report.judged_employee.id == user_id]
 
 
 if __name__=="__main__":
-    baza_danych = BazaDanych("data")
+    baza_danych = Database("data")
     # print(baza_danych.get_all_employees())
     # print(foo := baza_danych.get_all_opinions())
     print(baza_danych.get_all_reports())

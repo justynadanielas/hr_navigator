@@ -27,7 +27,7 @@ class OpinionFrame(tk.Frame):
         my_opinions_frame = tk.Frame(self)
         my_opinions_frame.pack()
 
-        opinions = self.root.baza_danych.get_all_opinions()
+        opinions = self.root.database.get_all_opinions()
         label_opinion_header = tk.Label(others_opinions_frame, text="Treść opinii")
         label_opinion_header.grid(row=0, column=0, padx=20)
         label_author_employee_header = tk.Label(others_opinions_frame, text="Osoba opiniująca")
@@ -93,9 +93,9 @@ class OpinionFrame(tk.Frame):
         if new_opinion is not None:
             opinion.opinion_body = new_opinion
         self.refresh_opinion_frame()
-        self.root.baza_danych.save_opinions_to_csv()
+        self.root.database.save_opinions_to_csv()
 
     def delete_opinion(self, opinion):
-        self.root.baza_danych.delete_opinion(opinion)
+        self.root.database.delete_opinion(opinion)
         self.refresh_opinion_frame()
-        self.root.baza_danych.save_opinions_to_csv()
+        self.root.database.save_opinions_to_csv()

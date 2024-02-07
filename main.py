@@ -1,14 +1,14 @@
 import tkinter as tk
 
 from add_opinion_frame import AddOpinionFrame
-from baza_danych import BazaDanych
+from baza_danych import Database
 from button_frame import ButtonFrame
 from login_frame import LoginFrame
 from opinion_frame import OpinionFrame
-from pracownik_szeregowy import PracownikSzeregowy
+from employee import Employee
 from report_frame import ReportFrame
-from pracownicy_frame import EmployeesFrame
-from harmonogram_frame import ScheduleFrame
+from employee_frame import EmployeeFrame
+from schedule_frame import ScheduleFrame
 
 
 class System(tk.Tk):
@@ -17,17 +17,17 @@ class System(tk.Tk):
         self.title("HRNavigator")
         self.geometry("700x450")
 
-        self.baza_danych = BazaDanych("moja_baza.db")
-        self.current_user: PracownikSzeregowy | None = None
+        self.database = Database("moja_baza.db")
+        self.current_user: Employee | None = None
 
         # na potrzeby testów
-        self.current_user: PracownikSzeregowy | None = self.baza_danych.get_employee_by_id(3)
+        self.current_user: Employee | None = self.database.get_employee_by_id(3)
 
         self.frames = {
             'login': LoginFrame(self),
             'harmonogram': ScheduleFrame(self),
             'opinie': OpinionFrame(self),
-            'pracownicy': EmployeesFrame(self),
+            'pracownicy': EmployeeFrame(self),
             'raporty': ReportFrame(self),
             'dodaj opinię': AddOpinionFrame(self)
         }

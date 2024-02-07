@@ -1,11 +1,11 @@
-from pracownik_szeregowy import PracownikSzeregowy
+from employee import Employee
 
 
-class Raport:
+class Report:
     def __init__(
         self,
         id: int,
-        judged_employee: PracownikSzeregowy,
+        judged_employee: Employee,
         date: str,
         report_body: str,
         is_confirmed: bool = False,

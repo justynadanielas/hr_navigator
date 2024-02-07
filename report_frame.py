@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-from raport import Raport
+from report import Report
 
 
 class ReportFrame(tk.Frame):
@@ -14,12 +14,12 @@ class ReportFrame(tk.Frame):
         self.pack()
         self.root.opinion_frame.pack_forget()
 
-    def confirm(self, report: Raport):
+    def confirm(self, report: Report):
         report.is_confirmed = True
         messagebox.showinfo("Raport", "Raport potwierdzony")
         self.refresh_report_frame()
 
-    def reject(self, report: Raport):
+    def reject(self, report: Report):
         report.is_rejected = True
         messagebox.showinfo("Raport", "Raport odrzucony")
         self.refresh_report_frame()
@@ -33,7 +33,7 @@ class ReportFrame(tk.Frame):
             label_report_header.grid(row=0, column=0, padx=20)
             return
 
-        reports = self.root.baza_danych.get_reports_by_user_id(self.root.current_user.id)
+        reports = self.root.database.get_reports_by_user_id(self.root.current_user.id)
 
         label_report_header = tk.Label(self, text="Treść raportu")
         label_report_header.grid(row=0, column=0, padx=20)

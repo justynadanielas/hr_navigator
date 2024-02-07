@@ -11,7 +11,7 @@ class AddOpinionFrame(tk.Frame):
         for widget in self.winfo_children():
             widget.destroy()
 
-        employees = self.root.baza_danych.get_all_employees()
+        employees = self.root.database.get_all_employees()
 
         employees_names = []
         for employee in employees:
@@ -47,11 +47,11 @@ class AddOpinionFrame(tk.Frame):
             # ponieważ selected_index to tuple, castuję go na inta
             selected_index_int = selected_index[0]
             # id pracowników zaczyna się od 1, więc trzeba przesunąć indeks o 1
-            judged_employee = self.root.baza_danych.get_employee_by_id(selected_index_int + 1)
+            judged_employee = self.root.database.get_employee_by_id(selected_index_int + 1)
 
         # tu potrzebny kod, który jako author_employee umieści zalogowaną osobę
         author_employee = self.root.current_user
 
-        self.root.baza_danych.add_opinion(author_employee, judged_employee, opinion_body)
+        self.root.database.add_opinion(author_employee, judged_employee, opinion_body)
         self.refresh_add_opinion_frame()
         self.root.show_opinion_frame()
